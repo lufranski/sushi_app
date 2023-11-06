@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sushi_app/pages/home_page.dart';
+import 'package:sushi_app/pages/menu_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
+      routes: {
+        '/homepage': (context) => const HomePage(),
+        '/menupage': (context) => const MenuPage()
+      },
     );
   }
 }
