@@ -49,11 +49,12 @@ class HomePage extends StatelessWidget {
             ),
             // get started button
             Button(
-              text: 'Get Started!',
+              text: 'Get Started',
               onTap: () {
                 // go to menu page
                 Navigator.pushNamed(context, '/menupage');
               },
+              isPrimary: false,
             )
           ],
         ),

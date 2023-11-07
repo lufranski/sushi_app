@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sushi_app/components/button.dart';
 import 'package:sushi_app/components/food_rating.dart';
 import 'package:sushi_app/models/food.dart';
+import 'package:sushi_app/models/shop.dart';
 import 'package:sushi_app/themes/color.dart';
 
 class SushiDetail extends StatefulWidget {
@@ -32,7 +34,42 @@ class _SushiDetailState extends State<SushiDetail> {
   }
 
   // add to cart
-  void addToCart() {}
+  void addToCart() {
+    // only add to cart if quantity is > 0
+    if (quantityCount > 0) {
+      // access to shop
+      final shop = context.read<Shop>();
+      // add to cart
+      shop.addToCart(widget.food, quantityCount);
+      // let the user know the operation was successful
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          backgroundColor: primaryColor,
+          content: const Text(
+            'Successfully added to cart!',
+            style: TextStyle(color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            // ok btn
+            IconButton(
+              onPressed: () {
+                // pop once to remove dialog box
+                Navigator.pop(context);
+                // pop again to go to previous screen
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.done,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +203,11 @@ class _SushiDetailState extends State<SushiDetail> {
                   height: 25,
                 ),
                 // add to cart btn
-                Button(text: 'Add to Cart', onTap: addToCart),
+                Button(
+                  text: 'Add to Cart',
+                  onTap: addToCart,
+                  isPrimary: false,
+                ),
               ],
             ),
           ),

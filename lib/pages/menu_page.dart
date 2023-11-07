@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:sushi_app/components/button.dart';
 import 'package:sushi_app/components/food_tile.dart';
-import 'package:sushi_app/models/food.dart';
+import 'package:sushi_app/models/shop.dart';
 import 'package:sushi_app/pages/sushi_detail.dart';
 import 'package:sushi_app/themes/color.dart';
-import 'package:sushi_app/constants/constants.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -15,26 +15,12 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  // Menu
-  List sushi = [
-    Food(
-      name: 'Salmon Nigiri',
-      price: '21.00',
-      imgPath: 'lib/assets/img/nigiri_salmon.png',
-      rating: '4.9',
-      description: descriptions.salmon,
-    ),
-    Food(
-      name: 'Tuna Nigiri',
-      price: '23.00',
-      imgPath: 'lib/assets/img/nigiri_tuna.png',
-      rating: '4.5',
-      description: descriptions.tuna,
-    ),
-  ];
-
   // navigation to food item details page
   void navigateToSushiDetails(int index) {
+    // get the shop and its menu
+    final shop = context.read<Shop>();
+    final sushi = shop.sushi;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -47,19 +33,27 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+    // get the shop and its menu
+    final shop = context.read<Shop>();
+    final sushi = shop.sushi;
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.grey[800],
         elevation: 0,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.grey[900],
-        ),
-        title: Text(
-          'Tokyo',
-          style: TextStyle(color: Colors.grey[900]),
-        ),
+        leading: const Icon(Icons.menu),
+        title: const Text('Tokyo'),
+        actions: [
+          // cart btn
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/cartpage');
+            },
+            icon: const Icon(Icons.shopping_cart),
+          )
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,6 +83,7 @@ class _MenuPageState extends State<MenuPage> {
                     Button(
                       text: 'Redeem',
                       onTap: () {},
+                      isPrimary: false,
                     )
                   ],
                 ),

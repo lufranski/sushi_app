@@ -4,7 +4,12 @@ import 'package:sushi_app/themes/color.dart';
 class Button extends StatelessWidget {
   final String text;
   final void Function()? onTap;
-  const Button({super.key, required this.text, required this.onTap});
+  final bool isPrimary;
+  const Button(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      required this.isPrimary});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,8 @@ class Button extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: secondaryColor, borderRadius: BorderRadius.circular(40)),
+            color: isPrimary ? primaryColor : secondaryColor,
+            borderRadius: BorderRadius.circular(40)),
         padding: const EdgeInsets.all(20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
