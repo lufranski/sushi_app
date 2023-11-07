@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sushi_app/components/food_rating.dart';
 import 'package:sushi_app/models/food.dart';
 
 class FoodTile extends StatelessWidget {
@@ -28,7 +29,7 @@ class FoodTile extends StatelessWidget {
             // image
             Image.asset(
               food.imgPath,
-              height: 140,
+              height: 120,
             ),
             // text
             Text(
@@ -50,18 +51,9 @@ class FoodTile extends StatelessWidget {
                     ),
                   ),
                   // rating
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow[800],
-                      ),
-                      Text(
-                        food.rating,
-                        style: const TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                  FoodRating(
+                    rating: food.rating,
+                  )
                 ],
               ),
             )

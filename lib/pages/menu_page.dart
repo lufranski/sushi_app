@@ -5,6 +5,7 @@ import 'package:sushi_app/components/food_tile.dart';
 import 'package:sushi_app/models/food.dart';
 import 'package:sushi_app/pages/sushi_detail.dart';
 import 'package:sushi_app/themes/color.dart';
+import 'package:sushi_app/constants/constants.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -21,19 +22,27 @@ class _MenuPageState extends State<MenuPage> {
       price: '21.00',
       imgPath: 'lib/assets/img/nigiri_salmon.png',
       rating: '4.9',
+      description: descriptions.salmon,
     ),
     Food(
       name: 'Tuna Nigiri',
       price: '23.00',
       imgPath: 'lib/assets/img/nigiri_tuna.png',
       rating: '4.5',
+      description: descriptions.tuna,
     ),
   ];
 
   // navigation to food item details page
   void navigateToSushiDetails(int index) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SushiDetail()));
+      context,
+      MaterialPageRoute(
+        builder: (context) => SushiDetail(
+          food: sushi[index],
+        ),
+      ),
+    );
   }
 
   @override
